@@ -1,0 +1,26 @@
+name: Goalie Selection
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '1 0 * * 1'  # Runs every Monday at 00:01
+
+jobs:
+  select-goalie:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select Goalie and Notify
+        uses: "volvo-cars/action-goalie-rotation@v2.0.1"
+        with:
+          goalies: |
+            gangatharan.sekaran@volvocars.com
+            rakesh.katipelli@volvocars.com
+            din.ibrahimovic@volvocars.com
+            haris.ibrahimovic@volvocars.com
+            firas.moussa.2@volvocars.com
+          slack-token: ${{ secrets.SLACK_TOKEN_ROTATION_APP }}
+          channels: 'cd-cdms-support'
+          group-handle: 'cdms-oncall-goale'
+          options: |
+            set-deputy
+            update-topic
